@@ -14,3 +14,13 @@ export function formatDate(dateStr) {
     minute: '2-digit',
   }).format(new Date(dateStr));
 }
+
+export function formatDay(dateStr) {
+  return new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    // hour: '2-digit',
+    // minute: '2-digit',
+  }).format(new Date(dateStr));
+}

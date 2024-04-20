@@ -1,11 +1,15 @@
-import { useSelector } from "react-redux";
-import { formatCurrency, formatDate } from '../../helper/format';
+import { useSearchParams } from 'react-router-dom';
+import { formatCurrency, formatDate, formatDay } from '../../helper/format';
 const ticket = Date.now();
 function Receipt() {
- const { travelFrom, travelTo, travelDate, returnDate,  totalAdult, duration, airline, price, firstName, lastName } = useSelector(store => store.user);
+
+ const [params] = useSearchParams();
+ const objString = (params.get('obj'));
+ const obj = JSON.parse(objString);
+ const { from, to, travelDate, returnDate, adults, duration, airline, price, fullName, fromCode, toCode } = obj;
 
 
- const subtotal = price * totalAdult;
+ const subtotal = price * adults;
  const tax = subtotal * 0.075;
 
  const creditCard = Math.floor(Math.random() * 1000);
@@ -43,10 +47,10 @@ function Receipt() {
        </div>
        <div className="ps-8">
         <h1 className="text-sm">{duration}</h1>
-        <p>{travelFrom}</p>
-        <h1 className="text-sm">DUB - {formatDate(travelDate)}</h1>
-        <p className="mt-2">{travelTo}</p>
-        <h1 className="text-sm">YYZ - {formatDate(returnDate)}</h1>
+        <p>{from}</p>
+        <h1 className="text-sm">{fromCode} - {formatDay(travelDate)}</h1>
+        <p className="mt-2">{to}</p>
+        <h1 className="text-sm">{toCode} - {formatDay(returnDate)}</h1>
         <p>{returnDate}</p>
        </div>
       </div>
@@ -81,7 +85,7 @@ function Receipt() {
        </div>
        <div className="">
         <p className="pt-2">Traveler Name</p>
-        <h2 className="pt-2">{firstName} {lastName}</h2>
+        <h2 className="pt-2">{fullName}</h2>
         <p className="pt-2">Meal Preference</p>
         <p className="pt-2">Any Meal</p>
        </div>

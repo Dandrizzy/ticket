@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './features/home/Home';
 import Receipt from './features/receipt/Receipt';
 import './index.css';
+import '@radix-ui/themes/styles.css';
+
 
 function App() {
   const router = createBrowserRouter([
